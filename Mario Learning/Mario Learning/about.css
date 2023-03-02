@@ -1,0 +1,29 @@
+.about .Welcome{
+    position: absolute;
+    color: #D6E629;
+    font-size: 36px;
+    left: 336px;
+}
+
+.about img{
+    position: absolute;
+    width: 222px;
+    left: 26px;
+    top: 50%;
+}
+
+.about .question{
+    position: absolute;
+    font-size: 40px;
+    color: #FBD348;
+    left: 17.5%;
+    top: 40%;
+}
+
+.about .describe{
+    position: absolute;
+    color: #fff;
+    font-size: 32px;
+    top: 50%;
+    left: 17.5%;
+}
